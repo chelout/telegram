@@ -135,11 +135,13 @@ class Telegram
             throw CouldNotSendNotification::telegramBotTokenNotProvided('You must provide your telegram bot token to make any API requests.');
         }
 
-        $endPointUrl = 'https://api.telegram.org/bot'.$this->token.'/'.$endpoint;
+        $host = config('services.telegram-bot-api.host') ?? 'https://api.telegram.org';
+        $endPointUrl = $host.'/bot'.$this->token.'/'.$endpoint;
 
         try {
             return $this->httpClient()->post($endPointUrl, [
                 $multipart ? 'multipart' : 'form_params' => $params,
+                'verify' => config('services.telegram-bot-api.verify_ssl') ?? true,
             ]);
         } catch (ClientException $exception) {
             throw CouldNotSendNotification::telegramRespondedWithAnError($exception);

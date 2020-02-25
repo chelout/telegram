@@ -53,6 +53,10 @@ Then, configure your Telegram Bot API Token:
 ...
 'telegram-bot-api' => [
     'token' => env('TELEGRAM_BOT_TOKEN', 'YOUR BOT TOKEN HERE')
+    // You can specify Telegram API host to use reverse proxy
+    // 'host' => env('TELEGRAM_API_HOST', 'https://your.proxy.domain-or-IP')
+    // and disable SSL verification if proxy's self-signed certificate is used
+    // 'verify_ssl' => false
 ],
 ...
 ```
